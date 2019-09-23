@@ -13,9 +13,12 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Proxy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 @SuppressWarnings("serial")
 @Entity
@@ -28,18 +31,26 @@ public class User implements UserDetails{
 	@Size(min=3, max=30)
 	private String username;
 	@NotNull
-	@Size(min=3, max=30)
+	@Size(min=3, max=300)
 	private String password;
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
+	public User() {
+		//this.setRole(Role.ROLE_CLIENT);
+	}
 
 	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
+	/*public void setRole(Role role) {
 		this.role = role;
+	}*/
+	
+	public void setRole(String role) {
+		this.role = Role.valueOf("ROLE_" + role.toUpperCase());
 	}
 
 	public Long getId() {
@@ -88,5 +99,13 @@ public class User implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	public User toUser(PasswordEncoder passwordEncoder) {
+		this.setPassword(passwordEncoder.encode(password));
+		return this;
+	}
 
+	public String toString() {
+		return this.getUsername() + " c ролью " + this.getRole() + " " + this.getPassword();
+	}
 }

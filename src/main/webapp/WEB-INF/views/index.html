@@ -1,13 +1,30 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Кинотеатр</title>
 </head>
 <body>
 
- <h1>Добро пожаловать в кинотеатр</h1>
+	<h1>Добро пожаловать в кинотеатр</h1>
 
+	<div>
+		<a th:href="@{/users/registration}">Желаете зарегистрироваться?</a>
+	</div>
+
+	<div>
+		<a th:href="@{/users/changeProfile}">Зарегистрированы? Желаете
+			сменить имя пользователя или пароль?</a>
+	</div>
+
+	<div>
+		<a th:href="@{/adminPage}">Вы администратор? Вам сюда</a>
+	</div>
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Выйти" />
+		</form>
+	</div>
 </body>
 </html>

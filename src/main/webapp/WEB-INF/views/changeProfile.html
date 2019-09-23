@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Изменение профиля</title>
+</head>
+<body>
+
+	<div>
+		<h2>Изменение профиля.</h2>
+	</div>
+
+	<form method="POST" th:action="@{/users/changeProfile}" th:object="${user}">
+		<label for="username">Username: </label> 
+		<input type="text" th:field="*{username}" name="username" /><br />
+		<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
+		<label for="password">Password: </label> 
+		<input type="password"	th:field="*{password}" name="password" /><br />
+		<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+			Error</div>
+			<input type="hidden" th:field="*{id}" /><br/>
+		<input type="submit" value="Register" />
+	</form>
+
+</body>
+</html>
