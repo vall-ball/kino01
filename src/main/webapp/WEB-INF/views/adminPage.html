@@ -23,20 +23,20 @@
  		<td th:text="${client.id}">id</td>
  		<td th:text="${client.username}">name</td>
  		<td th:text="${client.role}">role</td>
- 		<!-- <td width="100"><a th:href="@{/accounts/addAccount/{id}(id=${client.id})}">Добавить новый счёт</a> </td> -->
- 		<!-- <td width="100"><a th:href="@{/accounts/{id}(id=${client.id})}">Просмотреть счета клиента</a> </td> -->
- 		<!-- <td width="100"><a th:href="@{/clients/deleteClient/{id}(id=${client.id})}">Удалить клиента</a> </td> -->
- 		<!-- <td width="100"><a th:href="@{/clients/changeClient/{id}(id=${client.id})}">Изменить клиента</a> </td> -->
+ 		<td width="100"><a th:href="@{/adminPage/deleteUser/{id}(id=${client.id})}">Удалить пользователя</a></td>
+ 		<td width="100"><a th:href="@{/adminPage/changeUser/{id}(id=${client.id})}">Изменить пользователя</a></td>
  </tr>
 </tbody>
 </table>
 <span th:if="${page.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
-    <a th:href="@{/clients(size=${page.size}, page=${pageNumber})}" th:text=${pageNumber}></a>
+    <a th:href="@{/adminPage(size=${page.size}, page=${pageNumber})}" th:text=${pageNumber}></a>
 </span>
 
 <div>
 <a th:href="@{/adminPage/addUser}">Добавить пользователя.</a>
 </div>
+
+<div th:insert="footer :: copy"></div>
 
 </body>
 </html>

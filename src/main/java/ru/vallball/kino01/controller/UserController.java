@@ -1,5 +1,7 @@
 package ru.vallball.kino01.controller;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -10,13 +12,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ru.vallball.kino01.model.Role;
 import ru.vallball.kino01.model.User;
 import ru.vallball.kino01.service.UserService;
 
@@ -63,7 +65,7 @@ public class UserController {
 	}
 
 	@PostMapping("/changeProfile")
-	public String changeProfile(@ModelAttribute @Valid User user, BindingResult result, Model model) {
+	public String changeProfile(@ModelAttribute @Valid User user, BindingResult result, Model model) throws SQLException {
 		logger.info(user.toString());
 		if (result.hasErrors()) {
 			logger.info(user.toString());
@@ -74,5 +76,11 @@ public class UserController {
 			return "redirect:/";
 		}
 	}
+	
+	 @ExceptionHandler(Exception.class)
+	  public String handleIOException(Exception ex, HttpServletRequest request, Model model) {
+		model.addAttribute("error", ex);
+	    return "error";
+	  }
 
 }

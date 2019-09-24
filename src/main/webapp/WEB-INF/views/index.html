@@ -21,10 +21,8 @@
 	<div>
 		<a th:href="@{/adminPage}">Вы администратор? Вам сюда</a>
 	</div>
-	<div>
-		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Выйти" />
-		</form>
-	</div>
+	
+	<div th:insert="footer :: copy"></div>
+	
 </body>
 </html>

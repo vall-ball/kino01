@@ -3,13 +3,13 @@
 xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Добавление нового пользователя.</title>
+<title>Изменение пользователя.</title>
 </head>
 <body>
 
-<div><h2>Добавление нового пользователя.</h2></div>
+<div><h1>Изменение клиента <span th:text="${user.username}"></span></h1></div>
 
-<form method="POST" th:action="@{/adminPage/addUser}" th:object="${user}">
+<form method="POST" th:action="@{/adminPage/changeUser}" th:object="${user}">
 	<label for="username">Username: </label>
 	<input type="text" th:field="*{username}" name="username"/><br/>
 	<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
@@ -20,6 +20,7 @@ xmlns:th="http://www.thymeleaf.org">
    	<input type="radio" name="role" value="Client" checked> Client <Br>
    	<input type="radio" name="role" value="Admin"> Admin <Br>
 	</p>
+	<input type="hidden" th:field="*{id}" /><br/>
 <input type="submit" value="Register"/>
 </form>
 

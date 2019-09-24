@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -16,8 +17,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,15 +67,46 @@ public class AdminController {
 
 	@PostMapping("/addUser")
 	public String processRegistration(@ModelAttribute @Valid User user, BindingResult result) {
-		 if(result.hasErrors()) {
+		if (result.hasErrors()) {
 			logger.info("Ошибок " + result.getErrorCount() + " " + result.getAllErrors().get(0).toString());
-			
+
 			return "addUser";
-	        }
-		 else {
-			 logger.info("Сохраняем...");
-			 userService.save(user.toUser(passwordEncoder));
-			 return "redirect:/adminPage";}
+		} else {
+			logger.info("Сохраняем...");
+			userService.save(user.toUser(passwordEncoder));
+			return "redirect:/adminPage";
+		}
 	}
 
+	@GetMapping("/deleteUser/{id}")
+	public String deleteUser(@PathVariable Long id, Model model) {
+		userService.delete(id);
+		return "redirect:/adminPage";
+	}
+
+	@GetMapping("/changeUser/{id}")
+	public String changeUser(@PathVariable("id") Long id, HttpServletRequest request, Model model) {
+		User user = userService.findUserById(id);
+		request.getSession().setAttribute("user", user);
+		model.addAttribute("user", user);
+		return "changeUser";
+	}
+
+	@PostMapping("/changeUser")
+	public String update(@ModelAttribute @Valid User user, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return "changeUser";
+		} else {
+
+			userService.save(user.toUser(passwordEncoder));
+
+		}
+		return "redirect:/adminPage";
+	}
+
+	@ExceptionHandler(Exception.class)
+	public String handleIOException(Exception ex, HttpServletRequest request, Model model) {
+		model.addAttribute("error", ex);
+		return "error";
+	}
 }
