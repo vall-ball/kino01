@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Добавление жанра.</title>
+</head>
+<body>
+
+	<div>
+		<h2>Добавление нового жанра.</h2>
+	</div>
+
+	<form method="POST" th:action="@{/films/addGenre}" th:object="${genre}">
+		<label for="name">Название: </label> <input type="text"
+			th:field="*{name}" name="name" /><br />
+		<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
+			Error</div>
+		<input type="submit" value="Register" />
+	</form>
+
+	<div th:insert="footer :: copy"></div>
+
+</body>
+</html>
+</html>
