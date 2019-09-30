@@ -3,19 +3,27 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Добавление жанра.</title>
+<title>Добавление нового фильма</title>
 </head>
 <body>
 
 	<div>
-		<h2>Добавление нового жанра.</h2>
+		<h2>Добавление нового фильма.</h2>
 	</div>
 
-	<form method="POST" th:action="@{/genres/addGenre}" th:object="${genre}">
+	<form method="POST" th:action="@{/films/addFilm}" th:object="${film}">
 		<label for="name">Название: </label> <input type="text"
 			th:field="*{name}" name="name" /><br />
 		<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
 			Error</div>
+		<ul>
+			<li th:each="genre : ${genres}">
+				<div>
+					<input type="checkbox" th:field="*{genres}" th:value="${genre.id}">
+					<label th:text="${genre.name}"></label>
+				</div>
+			</li>
+		</ul>
 		<input type="submit" value="Register" />
 	</form>
 

@@ -22,33 +22,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ru.vallball.kino01.model.Film;
 import ru.vallball.kino01.model.Genre;
-import ru.vallball.kino01.model.User;
-import ru.vallball.kino01.service.FilmService;
 import ru.vallball.kino01.service.GenreService;
 
-@Controller
-@RequestMapping(value = { "/films" })
-public class FilmController {
 
-	@Autowired
-	FilmService filmService;
+@Controller
+@RequestMapping(value = { "/genres" })
+public class GenreController {
+	
 
 	@Autowired
 	GenreService genreService;
 
-	@ModelAttribute("film")
-	public Film newFilm(@RequestParam(required = false, value = "id") Long id) {
+	@ModelAttribute("genre")
+	public Genre newGenre(@RequestParam(required = false, value = "id") Long id) {
 		if (id == null) {
-			return new Film();
+			return new Genre();
 		} else
-			return filmService.findFilmById(id);
+			return genreService.findGenreById(id);
 	}
 
 	@GetMapping
-	public String films(@PageableDefault(page = 0, size = 10) Pageable pageable, Model model) {
-		Page<Film> page = filmService.findAll(pageable);
+	public String genres(@PageableDefault(page = 0, size = 10) Pageable pageable, Model model) {
+		Page<Genre> page = genreService.findAll(pageable);
 		model.addAttribute("page", page);
 		int totalPages = page.getTotalPages();
 		if (totalPages > 0) {
@@ -56,56 +52,50 @@ public class FilmController {
 			model.addAttribute("pageNumbers", pageNumbers);
 		}
 
-		return "films";
+		return "genres";
+	}
+	
+	@GetMapping("/addGenre")
+	public String addGenre() {
+		return "addGenre";
 	}
 
-	@GetMapping("/addFilm")
-	public String add(Model model) {
-		List<Genre> genres = genreService.list();
-		model.addAttribute("genres", genres);
-
-		return "addFilm";
-	}
-
-	@PostMapping("/addFilm")
-	public String newFilm(@ModelAttribute @Valid Film film, BindingResult result, Model model) {
+	@PostMapping("/addGenre")
+	public String newGenre(@ModelAttribute @Valid Genre genre, BindingResult result) {
 		if (result.hasErrors()) {
-			List<Genre> genres = genreService.list();
-			model.addAttribute("genres", genres);
-			return "addFilm";
+			return "addGenre";
 		} else {
-			filmService.save(film);
-			return "redirect:/films";
+			genreService.save(genre);
+			return "redirect:/genres";
 		}
 	}
-
-	@GetMapping("/deleteFilm/{id}")
+	
+	@GetMapping("/deleteGenre/{id}")
 	public String delete(@PathVariable Long id, Model model) {
-		filmService.delete(id);
-		return "redirect:/films";
+		genreService.delete(id);
+		return "redirect:/genres";
 	}
-
-	@GetMapping("/changeFilm/{id}")
+	
+	@GetMapping("/changeGenre/{id}")
 	public String change(@PathVariable("id") Long id, HttpServletRequest request, Model model) {
-		List<Genre> genres = genreService.list();
-		model.addAttribute("genres", genres);
-		Film film = filmService.findFilmById(id);
-		request.getSession().setAttribute("film", film);
-		model.addAttribute("film", film);
-		return "changeFilm";
+		Genre genre = genreService.findGenreById(id);
+		request.getSession().setAttribute("genre", genre);
+		model.addAttribute("genre", genre);
+		return "changeGenre";
 	}
 
-	@PostMapping("/changeFilm")
-	public String update(@ModelAttribute @Valid Film film, BindingResult result, Model model) {
+	@PostMapping("/changeGenre")
+	public String update(@ModelAttribute @Valid Genre genre, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return "changeFilm";
+			return "changeGenre";
 		} else {
 
-			filmService.save(film);
-		}
-		return "redirect:/films";
-	}
+			genreService.save(genre);
 
+		}
+		return "redirect:/genres";
+	}
+	
 	@ExceptionHandler(Exception.class)
 	public String handleIOException(Exception ex, HttpServletRequest request, Model model) {
 		model.addAttribute("error", ex);

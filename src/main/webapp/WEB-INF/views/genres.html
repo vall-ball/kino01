@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Жанры</title>
+</head>
+<body>
+
+	<h1>Жанры</h1>
+	
+	<table border="2">
+		<tbody>
+			<tr th:each="genre : ${page.content}">
+				<td th:text="${genre.name}">id</td>
+				<td width="100"><a
+					th:href="@{/genres/deleteGenre/{id}(id=${genre.id})}">Удалить
+						жанр</a></td>
+				<td width="100"><a
+					th:href="@{/genres/changeGenre/{id}(id=${genre.id})}">Изменить
+						жанр</a></td>
+			</tr>
+		</tbody>
+
+		<table border="2">
+
+		</table>
+		<span th:if="${page.totalPages > 0}"
+			th:each="pageNumber : ${pageNumbers}"> <a
+			th:href="@{/genres(size=${page.size}, page=${pageNumber})}"
+			th:text=${pageNumber}></a>
+		</span>
+
+
+
+		<div>
+			<a th:href="@{/genres/addGenre}">Добавить жанр.</a>
+		</div>
+		
+		<div th:insert="footer :: copy"></div>
+</body>
+</html>

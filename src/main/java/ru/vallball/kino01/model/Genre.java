@@ -32,8 +32,13 @@ public class Genre {
 		return id;
 	}
 	
+	@Override
 	public String toString() {
 		return this.getName();
+	}
+	
+	public boolean equal(Genre genre) {
+		return this.getName().equals(genre.getName());
 	}
 	
 }

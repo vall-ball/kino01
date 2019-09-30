@@ -9,7 +9,7 @@ xmlns:th="http://www.thymeleaf.org">
 
 <div><h1>Изменение клиента <span th:text="${user.username}"></span></h1></div>
 
-<form method="POST" th:action="@{/adminPage/changeUser}" th:object="${user}">
+<form method="POST" th:action="@{/accounts/changeUser}" th:object="${user}">
 	<label for="username">Username: </label>
 	<input type="text" th:field="*{username}" name="username"/><br/>
 	<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>

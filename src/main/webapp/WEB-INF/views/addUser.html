@@ -9,7 +9,7 @@ xmlns:th="http://www.thymeleaf.org">
 
 <div><h2>Добавление нового пользователя.</h2></div>
 
-<form method="POST" th:action="@{/adminPage/addUser}" th:object="${user}">
+<form method="POST" th:action="@{/accounts/addUser}" th:object="${user}">
 	<label for="username">Username: </label>
 	<input type="text" th:field="*{username}" name="username"/><br/>
 	<div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>

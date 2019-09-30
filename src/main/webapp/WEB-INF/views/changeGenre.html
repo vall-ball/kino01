@@ -3,19 +3,20 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Добавление жанра.</title>
+<title>Изменение жанра.</title>
 </head>
 <body>
 
 	<div>
-		<h2>Добавление нового жанра.</h2>
+		<h2>Изменение жанра. <span th:text="${genre.name}"></span></h2>
 	</div>
 
-	<form method="POST" th:action="@{/genres/addGenre}" th:object="${genre}">
+	<form method="POST" th:action="@{/genres/changeGenre}" th:object="${genre}">
 		<label for="name">Название: </label> <input type="text"
 			th:field="*{name}" name="name" /><br />
 		<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
 			Error</div>
+		<input type="hidden" th:field="*{id}" /><br/>
 		<input type="submit" value="Register" />
 	</form>
 
