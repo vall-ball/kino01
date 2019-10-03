@@ -87,11 +87,13 @@ public class FilmController {
 
 	@GetMapping("/changeFilm/{id}")
 	public String change(@PathVariable("id") Long id, HttpServletRequest request, Model model) {
-		List<Genre> genres = genreService.list();
-		model.addAttribute("genres", genres);
+		List<Genre> allGenres = genreService.list();
+		model.addAttribute("allGenres", allGenres);
 		Film film = filmService.findFilmById(id);
-		request.getSession().setAttribute("film", film);
+		//request.getSession().setAttribute("film", film);
 		model.addAttribute("film", film);
+		boolean flag = true;
+		model.addAttribute("flag", flag);
 		return "changeFilm";
 	}
 

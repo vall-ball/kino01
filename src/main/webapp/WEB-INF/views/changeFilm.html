@@ -8,24 +8,24 @@
 <body>
 
 	<div>
-		<h2>Изменение фильма <span th:text="${film.name}"></span></h2>
+		<h2>
+			Изменение фильма <span th:text="${film.name}"></span>
+		</h2>
 	</div>
 
-	<form method="POST" th:action="@{/films/changeFilm}" th:object="${film}">
-		<label for="name">Название: </label> <input type="text" th:field="*{name}"
-			name="name" /><br />
+	<form method="POST" th:action="@{/films/changeFilm}"
+		th:object="${film}">
+		<label for="name">Название: </label> <input type="text"
+			th:field="*{name}" name="name" /><br />
 		<div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name
 			Error</div>
-		<ul>
-			<li th:each="genre : ${genres}">
-				<div>
-					<input type="checkbox"  th:checked="${film.containsGenre(genre)} ? 'checked' : ''" th:field="*{genres}" th:value="${genre.id}">
-					<label th:text="${genre.name}"></label>
-				</div>
-			</li>
-		</ul>
-		<input type="hidden" th:field="*{id}" /><br /> <input type="submit"
-			value="Register" />
+
+		<div th:each="genre : ${allGenres}">
+			<input type="checkbox" th:field="*{genres}" th:value="${genre.id}">
+			<label th:text="${genre.name}"></label>
+			</div> 
+			<div><input type="hidden" th:field="*{id}" /></div> 
+			<div><input type="submit" value="Register" /></div>
 	</form>
 
 	<div th:insert="footer :: copy"></div>

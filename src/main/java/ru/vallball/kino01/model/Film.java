@@ -61,12 +61,4 @@ public class Film {
 		return id;
 	}
 
-	public boolean containsGenre(Genre genre) {
-		for (Genre g : this.genres) {
-			if (g.equals(genre))
-				return true;
-		}
-		return false;
-	}
-
 }

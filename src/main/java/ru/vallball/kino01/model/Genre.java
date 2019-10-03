@@ -36,9 +36,12 @@ public class Genre {
 	public String toString() {
 		return this.getName();
 	}
-	
-	public boolean equal(Genre genre) {
-		return this.getName().equals(genre.getName());
+
+	@Override
+	public boolean equals(Object object) {
+		if (!object.getClass().equals(Genre.class)) return false;
+		else if (((Genre)object).getId() == this.getId()) return true;
+		return false;
 	}
 	
 }
