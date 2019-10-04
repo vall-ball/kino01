@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Изменение постера</title>
+</head>
+<body>
+	<h1>
+		Изменение фильма <span th:text="${film.name}">
+	</h1>
+	<form action="#" th:action="@{/films/fileUpload}" method="post"
+		enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>Select File</td>
+				<td><input type="file" name="file"></td>
+				<td><button type="submit">Upload</button></td>
+			</tr>
+		</table>
+	</form>
+
+	<div th:insert="footer :: copy"></div>
+
+</body>
+</html>

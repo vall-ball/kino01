@@ -15,6 +15,7 @@
 				<th>id</th>
 				<th>name</th>
 				<th>genres</th>
+				<th>poster</th>
 			</tr>
 			<tbody>
 				<tr th:each="film : ${page.content}">
@@ -25,12 +26,16 @@
 							<li th:each="genre : ${film.genres}" th:text="${genre.name}">Жанры</li>
 						</ul>
 					</td>
+					<td width="100"><img th:src="${film.picture}" style="height:100px"></p></td>
 					<td width="100"><a
 						th:href="@{/films/deleteFilm/{id}(id=${film.id})}">Удалить
 							фильм</a></td>
 					<td width="100"><a
 						th:href="@{/films/changeFilm/{id}(id=${film.id})}">Изменить
 							фильм</a></td>
+					<td width="100"><a
+						th:href="@{/films/changePicture/{id}(id=${film.id})}">Изменить
+							постер</a></td>
 				</tr>
 			</tbody>
 		</table>
