@@ -1,5 +1,6 @@
 package ru.vallball.kino01.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -20,5 +21,7 @@ public interface SessionService {
 	Session findSessionById(Long id);
 
 	Page<Session> findAll(Pageable pageable);
+	
+	List<Session> findByDate(LocalDate date);
 
 }

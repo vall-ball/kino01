@@ -12,6 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 @Entity
 @Table(name = "sessions")
 public class Session {
@@ -20,7 +23,7 @@ public class Session {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull
+	//@NotNull
 	LocalDate date;
 	
 	@NotNull
@@ -28,6 +31,7 @@ public class Session {
 	
 	@NotNull
 	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="film_id")
 	Film film;
 
@@ -59,6 +63,10 @@ public class Session {
 		return id;
 	}
 	
+	@Override
+	public String toString() {
+		return this.film.getName() + " " + this.getDate() + " " + this.time;
+	}
 	
 
 }

@@ -88,7 +88,7 @@ public class FilmController {
 	}
 
 	@GetMapping("/deleteFilm/{id}")
-	public String delete(@PathVariable Long id, Model model) {
+	public String delete(@PathVariable Long id) {
 		filmService.delete(id);
 		return "redirect:/films";
 	}

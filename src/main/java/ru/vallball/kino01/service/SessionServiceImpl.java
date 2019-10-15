@@ -1,5 +1,7 @@
 package ru.vallball.kino01.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,23 @@ public class SessionServiceImpl implements SessionService{
 	@Override
 	public Page<Session> findAll(Pageable pageable) {
 		return sessionRepository.findAll(pageable);
+	}
+	
+	@Override
+	public List<Session> findByDate(LocalDate date) {
+		List<Session> list = sessionRepository.findAll();
+		List<Session> listByDate = new ArrayList<>();
+		boolean control = false;
+		for (Session s : list) {
+			if (s.getDate().equals(date)) { listByDate.add(s);
+			control = true;
+			}
+		}
+		if (!control) {
+			return new ArrayList<Session>();
+			
+		}
+		return listByDate;
 	}
 
 }
