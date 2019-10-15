@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Добавление нового сеанса</title>
+</head>
+<body>
+	<div>
+		<h1>
+			Добавление нового сеанса на дату <span th:text="${date}"></span>
+		</h1>
+	</div>
+	<form method="POST" th:action="@{/sessions/addSession}"
+		th:object="${sess}">
+		<p>
+
+			<b>Выберите фильм</b>
+		</p>
+		<select th:field="*{film}">
+			<option th:each="film : ${films}" th:value="${film.id}"
+				th:text="${film.name}"></option>
+		</select>
+		<div th:object="${listTime}">
+			<select name="time">
+				<option value="">Выберите время</option>
+				<option th:each="t : ${listTime}" th:value="${t}" th:text="${t}"></option>
+			</select>
+		</div>
+		<div th:if="${#fields.hasErrors('time')}" th:errors="*{time}">Name
+			Error</div>
+		<p>
+			<button type="submit" value="Submit">Добавить сеанс</button>
+		</p>
+	</form>
+
+	<div th:insert="footer :: copy"></div>
+
+</body>
+</html>
