@@ -17,34 +17,45 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(name = "places")
 public class Place {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotNull
 	private int line;
-	
+
 	@NotNull
 	private int number;
-	
+
 	@NotNull
 	@ManyToOne
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	@JoinColumn(name="session_id")
+	@JoinColumn(name = "session_id")
 	private Session session;
-	
+
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Status status;
-	
+
+	@NotNull
+	@Enumerated(EnumType.STRING)
+	private Category category;
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@NotNull
 	private double price;
-
 
 	public int getLine() {
 		return line;

@@ -1,98 +1,121 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Сеансы</title>
 <style type="text/css">
-  table {
-    table-layout: auto;
-      width: 100%; 
-   }
-  </style>
+table {
+	table-layout: auto;
+	width: 100%;
+}
+</style>
 </head>
 <body>
-<div><h1>Сеансы</h1></div>
+	<div>
+		<h1>Сеансы</h1>
+	</div>
 
-<table border="2">
-<tbody>
-<tr th:each="month : ${dayList.listMonths()}">
- 	<th th:text="${month}">Название</th>
- 	<td>
- 		<table border="1">
- 		<tbody>
- 		<tr>
- 		<th>Mon</th>
-		<th>Tue</th>
-		<th>Wed</th>
-		<th>Thu</th>
-		<th>Fri</th>
-		<th>Sat</th>
-		<th>Sun</th>
- 		</tr>
- 		<tr th:each="week : ${dayList.listWeeks(month)}">
- 			<td><a th:href="@{/sessions/addSession/{id}(id=${week.monDate})}" th:text="${week.monDate}"></a>
- 			<p th:each="ev : ${week.mon}">
- 			<span th:text="${ev}"></span>
- 			<a th:href="@{/sessions/delete/{id}(id=${ev.id})}" th:text="Удалить"></a>
- 			<a th:href="@{/sessions/update/{id}(id=${ev.id})}" th:text="Изменить"></a>
- 			</p>
- 			</td>
- 			<td><a th:href="@{/sessions/addSession/{id}(id=${week.tueDate})}" th:text="${week.tueDate}"></a>
- 			<p th:each="ev : ${week.tue}">
- 			<span th:text="${ev}"></span>
- 			<a th:href="@{/sessions/delete/{id}(id=${ev.id})}" th:text="Удалить"></a>
- 			<a th:href="@{/sessions/update/{id}(id=${ev.id})}" th:text="Изменить"></a>
- 			</p>
- 			</td>
- 			<td><a th:href="@{/sessions/addSession/{id}(id=${week.wedDate})}" th:text="${week.wedDate}"></a>
- 			<p th:each="ev : ${week.wed}">
- 			<span th:text="${ev}"></span>
- 			<a th:href="@{/sessions/delete/{id}(id=${ev.id})}" th:text="Удалить"></a>
- 			<a th:href="@{/sessions/update/{id}(id=${ev.id})}" th:text="Изменить"></a>
- 			</p>
- 			</td>
- 			<td><a th:href="@{/sessions/addSession/{id}(id=${week.thuDate})}" th:text="${week.thuDate}"></a>
- 			<p th:each="ev : ${week.thu}">
- 			<span th:text="${ev}"></span>
- 			<a th:href="@{/sessions/delete/{id}(id=${ev.id})}" th:text="Удалить"></a>
- 			<a th:href="@{/sessions/update/{id}(id=${ev.id})}" th:text="Изменить"></a>
- 			</p>
- 			</td>
- 			<td><a th:href="@{/sessions/addSession/{id}(id=${week.friDate})}" th:text="${week.friDate}"></a>
- 			<p th:each="ev : ${week.fri}">
- 			<span th:text="${ev}"></span>
- 			<a th:href="@{/sessions/delete/{id}(id=${ev.id})}" th:text="Удалить"></a>
- 			<a th:href="@{/sessions/update/{id}(id=${ev.id})}" th:text="Изменить"></a>
- 			</p>
- 			</td>
- 			<td><a th:href="@{/sessions/addSession/{id}(id=${week.satDate})}" th:text="${week.satDate}"></a>
- 			<p th:each="ev : ${week.sat}">
- 			<span th:text="${ev}"></span>
- 			<a th:href="@{/sessions/delete/{id}(id=${ev.id})}" th:text="Удалить"></a>
- 			<a th:href="@{/sessions/update/{id}(id=${ev.id})}" th:text="Изменить"></a>
- 			</p>
- 			</td>
- 			<td><a th:href="@{/sessions/addSession/{id}(id=${week.sunDate})}" th:text="${week.sunDate}"></a>
- 			<p th:each="ev : ${week.sun}">
- 			<span th:text="${ev}"></span>
- 			<a th:href="@{/sessions/delete/{id}(id=${ev.id})}" th:text="Удалить"></a>
- 			<a th:href="@{/sessions/update/{id}(id=${ev.id})}" th:text="Изменить"></a>
- 			</p>
- 			</td>
- 			
- 		</tr>
- 		</tbody>
- 		</table>
- 	</td>
- </tr>
- 
-</tbody>
-</table>
+	<table border="2">
+		<tbody>
+			<tr th:each="month : ${dayList.listMonths()}">
+				<th th:text="${month}">Название</th>
+				<td>
+					<table border="1">
+						<tbody>
+							<tr>
+								<th>Mon</th>
+								<th>Tue</th>
+								<th>Wed</th>
+								<th>Thu</th>
+								<th>Fri</th>
+								<th>Sat</th>
+								<th>Sun</th>
+							</tr>
+							<tr th:each="week : ${dayList.listWeeks(month)}">
+								<td><a
+									th:href="@{/sessions/addSession/{id}(id=${week.monDate})}"
+									th:text="${week.monDate}"></a>
+									<p th:each="ev : ${week.mon}">
+										<span th:text="${ev}"></span> <a
+											th:href="@{/sessions/delete/{id}(id=${ev.id})}"
+											th:text="Удалить"></a> <a
+											th:href="@{/sessions/update/{id}(id=${ev.id})}"
+											th:text="Изменить"></a>
+									</p></td>
+								<td><a
+									th:href="@{/sessions/addSession/{id}(id=${week.tueDate})}"
+									th:text="${week.tueDate}"></a>
+									<p th:each="ev : ${week.tue}">
+										<span th:text="${ev}"></span> <a
+											th:href="@{/sessions/delete/{id}(id=${ev.id})}"
+											th:text="Удалить"></a> <a
+											th:href="@{/sessions/update/{id}(id=${ev.id})}"
+											th:text="Изменить"></a>
+									</p></td>
+								<td><a
+									th:href="@{/sessions/addSession/{id}(id=${week.wedDate})}"
+									th:text="${week.wedDate}"></a>
+									<p th:each="ev : ${week.wed}">
+										<span th:text="${ev}"></span> <a
+											th:href="@{/sessions/delete/{id}(id=${ev.id})}"
+											th:text="Удалить"></a> <a
+											th:href="@{/sessions/update/{id}(id=${ev.id})}"
+											th:text="Изменить"></a>
+									</p></td>
+								<td><a
+									th:href="@{/sessions/addSession/{id}(id=${week.thuDate})}"
+									th:text="${week.thuDate}"></a>
+									<p th:each="ev : ${week.thu}">
+										<span th:text="${ev}"></span> <a
+											th:href="@{/sessions/delete/{id}(id=${ev.id})}"
+											th:text="Удалить"></a> <a
+											th:href="@{/sessions/update/{id}(id=${ev.id})}"
+											th:text="Изменить"></a>
+									</p></td>
+								<td><a
+									th:href="@{/sessions/addSession/{id}(id=${week.friDate})}"
+									th:text="${week.friDate}"></a>
+									<p th:each="ev : ${week.fri}">
+										<span th:text="${ev}"></span> <a
+											th:href="@{/sessions/delete/{id}(id=${ev.id})}"
+											th:text="Удалить"></a> <a
+											th:href="@{/sessions/update/{id}(id=${ev.id})}"
+											th:text="Изменить"></a>
+									</p></td>
+								<td><a
+									th:href="@{/sessions/addSession/{id}(id=${week.satDate})}"
+									th:text="${week.satDate}"></a>
+									<p th:each="ev : ${week.sat}">
+										<span th:text="${ev}"></span> <a
+											th:href="@{/sessions/delete/{id}(id=${ev.id})}"
+											th:text="Удалить"></a> <a
+											th:href="@{/sessions/update/{id}(id=${ev.id})}"
+											th:text="Изменить"></a>
+									</p></td>
+								<td><a
+									th:href="@{/sessions/addSession/{id}(id=${week.sunDate})}"
+									th:text="${week.sunDate}"></a>
+									<p th:each="ev : ${week.sun}">
+										<span th:text="${ev}"></span> <a
+											th:href="@{/sessions/delete/{id}(id=${ev.id})}"
+											th:text="Удалить"></a> <a
+											th:href="@{/sessions/update/{id}(id=${ev.id})}"
+											th:text="Изменить"></a>
+									</p></td>
+
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
 
 
 
 
-<p><a th:href="@{/search}">Поиск событий</a></p>
+	<div th:insert="footer :: copy"></div>
 </body>
 </html>

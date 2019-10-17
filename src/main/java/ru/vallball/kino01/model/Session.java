@@ -10,13 +10,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Entity
-@Table(name = "sessions")
+@Table(name = "sessions", uniqueConstraints={@UniqueConstraint(columnNames={"date", "time"})})
 public class Session {
 	
 	@Id
@@ -31,7 +32,6 @@ public class Session {
 	
 	@NotNull
 	@ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="film_id")
 	Film film;
 
