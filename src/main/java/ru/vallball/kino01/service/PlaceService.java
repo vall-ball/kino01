@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import ru.vallball.kino01.model.Place;
+import ru.vallball.kino01.model.Session;
 
 public interface PlaceService {
 
@@ -20,5 +21,7 @@ public interface PlaceService {
 	Place findPlaceById(Long id);
 
 	Page<Place> findAll(Pageable pageable);
+	
+	public List<Place> findAllBySession(Session session);
 
 }

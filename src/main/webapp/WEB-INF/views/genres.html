@@ -8,7 +8,7 @@
 <body>
 
 	<h1>Жанры</h1>
-	
+
 	<table border="2">
 		<tbody>
 			<tr th:each="genre : ${page.content}">
@@ -22,21 +22,20 @@
 			</tr>
 		</tbody>
 
-		<table border="2">
-
-		</table>
-		<span th:if="${page.totalPages > 0}"
-			th:each="pageNumber : ${pageNumbers}"> <a
-			th:href="@{/genres(size=${page.size}, page=${pageNumber})}"
-			th:text=${pageNumber}></a>
-		</span>
+	</table>
+	<span th:if="${page.totalPages > 0}"
+		th:each="pageNumber : ${pageNumbers}"> <a
+		th:href="@{/genres(size=${page.size}, page=${pageNumber})}"
+		th:text=${pageNumber}></a>
+	</span>
 
 
 
-		<div>
-			<a th:href="@{/genres/addGenre}">Добавить жанр.</a>
-		</div>
-		
-		<div th:insert="footer :: copy"></div>
+
+	<div>
+		<a th:href="@{/genres/addGenre}">Добавить жанр.</a>
+	</div>
+
+	<div th:insert="footer :: copy"></div>
 </body>
 </html>

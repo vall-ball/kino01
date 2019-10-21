@@ -7,9 +7,43 @@
 </head>
 <body>
 
-	<h1>Добро пожаловать, <span th:text="${user.username}"></h1>
+	<h1>
+		Добро пожаловать, <span th:text="${user.username}">
+	</h1>
+
+	<h1>Фильмы</h1>
+
+		<table border="2">
+			<tr>
+				<th>id</th>
+				<th>name</th>
+				<th>genres</th>
+				<th>poster</th>
+			</tr>
+			<tbody>
+				<tr th:each="film : ${page.content}">
+					<td th:text="${film.id}">id</td>
+					<td th:text="${film.name}">name</td>
+					<td>
+						<ul>
+							<li th:each="genre : ${film.genres}" th:text="${genre.name}">Жанры</li>
+						</ul>
+					</td>
+					<td width="100"><img th:src="${film.picture}"
+						style="height: 100px">
+						</p></td>
+					<td width="100"><a
+						th:href="@{/forClient/sessionOfFilm/{id}(id=${film.id})}">Выбрать сеанс</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<span th:if="${page.totalPages > 0}"
+			th:each="pageNumber : ${pageNumbers}"> <a
+			th:href="@{/films(size=${page.size}, page=${pageNumber})}"
+			th:text=${pageNumber}></a>
+		</span>
+
 
 	<div th:insert="footer :: copy"></div>
-
 </body>
 </html>

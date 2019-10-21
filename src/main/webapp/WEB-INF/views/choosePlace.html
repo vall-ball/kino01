@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+
+	<h1>
+		Добро пожаловать, <span th:text="${user.username}"></span>
+	</h1>
+
+	<h1>
+		Выбор места на сеанс <span th:text="${sess}"></span>
+	</h1>
+
+	<table border="2">
+		<tbody>
+			<tr th:each="row : ${rows}">
+				<tr th:each="place: ${row.places}">
+				<td th:text="${place}" /></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<div th:insert="footer :: copy"></div>
+</body>
+</html>

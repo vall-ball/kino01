@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import ru.vallball.kino01.model.Film;
 import ru.vallball.kino01.model.Session;
 
 public interface SessionService {
@@ -23,5 +24,7 @@ public interface SessionService {
 	Page<Session> findAll(Pageable pageable);
 	
 	List<Session> findByDate(LocalDate date);
+	
+	Page<Session> findAllByFilm(Pageable pageable, Film film);
 
 }

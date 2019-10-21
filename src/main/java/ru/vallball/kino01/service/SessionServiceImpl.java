@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ import ru.vallball.kino01.controller.SessionController;
 import ru.vallball.kino01.dao.PlaceRepository;
 import ru.vallball.kino01.dao.SessionRepository;
 import ru.vallball.kino01.model.Category;
+import ru.vallball.kino01.model.Film;
 import ru.vallball.kino01.model.Place;
 import ru.vallball.kino01.model.Session;
 import ru.vallball.kino01.model.Status;
@@ -82,7 +85,8 @@ public class SessionServiceImpl implements SessionService {
 
 	@Override
 	public Page<Session> findAll(Pageable pageable) {
-		return sessionRepository.findAll(pageable);
+		return sessionRepository.findAll(PageRequest.of(pageable.getPageNumber(), 
+				pageable.getPageSize(), Sort.by("date").and(Sort.by("time"))));
 	}
 
 	@Override
@@ -102,5 +106,13 @@ public class SessionServiceImpl implements SessionService {
 		}
 		return listByDate;
 	}
+
+	@Override
+	public Page<Session> findAllByFilm(Pageable pageable, Film film) {
+		return sessionRepository.findAllByFilm(PageRequest.of(pageable.getPageNumber(), 
+				pageable.getPageSize(), Sort.by("date").and(Sort.by("time"))),film);
+	}
+	
+	
 
 }

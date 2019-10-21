@@ -108,5 +108,10 @@ public class Place {
 	public Long getId() {
 		return id;
 	}
+	
+	@Override
+	public String toString() {
+		return "Место № " + this.number + " в ряду " + this.line + " сеанса " + this.session;
+	}
 
 }
