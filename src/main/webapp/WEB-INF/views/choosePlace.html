@@ -14,16 +14,13 @@
 	<h1>
 		Выбор места на сеанс <span th:text="${sess}"></span>
 	</h1>
-
 	<table border="2">
 		<tbody>
 			<tr th:each="row : ${rows}">
-				<tr th:each="place: ${row.places}">
-				<td th:text="${place}" /></td>
+				<td th:each="place : ${row.places}" th:text="${place}"></td>
 			</tr>
 		</tbody>
 	</table>
-
 
 	<div th:insert="footer :: copy"></div>
 </body>
