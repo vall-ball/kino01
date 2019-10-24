@@ -3,7 +3,18 @@
 	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Выбор места</title>
+<style type="text/css">
+  .statusFree {
+    background: PaleGreen; /* Цвет фона ячеек */
+   }
+    .statusBusy {
+    background: Fuchsia; /* Цвет фона ячеек */
+   }
+    .statusYours {
+    background: LightYellow; /* Цвет фона ячеек */
+   }
+  </style>
 </head>
 <body>
 
@@ -17,8 +28,8 @@
 	<table border="2">
 		<tbody>
 			<tr th:each="row : ${rows}">
-				<td th:each="place : ${row.places}" th:text="${place}"></td>
-			</tr>
+				<td th:each="place : ${row.places}" th:text="${place}" 
+				th:class="${place.isFree()} ? 'statusFree' : (${place.isBusy()} ? 'statusBusy' : 'statusYours')"></td>			</tr>
 		</tbody>
 	</table>
 

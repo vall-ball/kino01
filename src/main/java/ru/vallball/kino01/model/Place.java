@@ -109,9 +109,18 @@ public class Place {
 		return id;
 	}
 	
+	public boolean isFree() {
+		if (this.getStatus() == Status.FREE) return true;
+		else return false;
+	}
+	
+	public boolean isBusy() {
+		if (this.getStatus() == Status.BUSY) return true;
+		else return false;
+	}
 	@Override
 	public String toString() {
-		return "Место № " + this.number + " в ряду " + this.line + " сеанса " + this.session;
+		return "Место № " + this.number + " в ряду " + this.line;
 	}
 
 }

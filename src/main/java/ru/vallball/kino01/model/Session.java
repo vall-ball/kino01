@@ -32,6 +32,7 @@ public class Session {
 	
 	@NotNull
 	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	@JoinColumn(name="film_id")
 	Film film;
 
