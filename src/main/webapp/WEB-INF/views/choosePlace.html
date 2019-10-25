@@ -5,16 +5,18 @@
 <meta charset="UTF-8">
 <title>Выбор места</title>
 <style type="text/css">
-  .statusFree {
-    background: PaleGreen; /* Цвет фона ячеек */
-   }
-    .statusBusy {
-    background: Fuchsia; /* Цвет фона ячеек */
-   }
-    .statusYours {
-    background: LightYellow; /* Цвет фона ячеек */
-   }
-  </style>
+.statusFree {
+	background: PaleGreen; /* Цвет фона ячеек */
+}
+
+.statusBusy {
+	background: Fuchsia; /* Цвет фона ячеек */
+}
+
+.statusYours {
+	background: LightYellow; /* Цвет фона ячеек */
+}
+</style>
 </head>
 <body>
 
@@ -25,13 +27,20 @@
 	<h1>
 		Выбор места на сеанс <span th:text="${sess}"></span>
 	</h1>
-	<table border="2">
-		<tbody>
+
+	<form method="POST" th:action="@{/forClient/choosePlace}">
+		<table>
 			<tr th:each="row : ${rows}">
-				<td th:each="place : ${row.places}" th:text="${place}" 
-				th:class="${place.isFree()} ? 'statusFree' : (${place.isBusy()} ? 'statusBusy' : 'statusYours')"></td>			</tr>
-		</tbody>
-	</table>
+				<td th:each="place : ${row.places}"
+				th:class="${place.isFree()} ? 'statusFree' : 'statusBusy'"
+					 ><input type="checkbox" name="places" value=[[${place.id}]]/>[[${place}]]
+					</td>
+			</tr>
+		</table>
+		<div>
+			<input type="submit" value="Выбрать отмеченные места" />
+		</div>
+	</form>
 
 	<div th:insert="footer :: copy"></div>
 </body>

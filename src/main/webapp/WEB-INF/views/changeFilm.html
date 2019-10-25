@@ -21,7 +21,7 @@
 			Error</div>
 
 		<div th:each="genre : ${allGenres}">
-			<input type="checkbox" th:field="*{genres}" th:value="${genre.id}">
+			<input type="checkbox" th:field="*{genres}" th:value="${genre.id}"/>
 			<label th:text="${genre.name}"></label>
 			</div> 
 			<div><input type="hidden" th:field="*{id}" /></div> 
