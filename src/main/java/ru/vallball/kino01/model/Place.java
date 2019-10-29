@@ -42,14 +42,6 @@ public class Place {
 	@Enumerated(EnumType.STRING)
 	private Category category;
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -109,6 +101,15 @@ public class Place {
 		return id;
 	}
 	
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
 	public boolean isFree() {
 		if (this.getStatus() == Status.FREE) return true;
 		else return false;
@@ -116,7 +117,7 @@ public class Place {
 
 	@Override
 	public String toString() {
-		return "Место № " + this.number + " в ряду " + this.line;
+		return "Место № " + this.number + " в ряду " + this.line + " за " + this.getPrice() + " руб";
 	}
 
 }

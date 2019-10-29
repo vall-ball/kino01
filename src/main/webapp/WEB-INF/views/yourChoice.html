@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Ваш выбор</title>
+</head>
+<body>
+
+	<h2>Ваш выбор.</h2>
+
+<ol th:each="place : ${places}">
+ <li th:text="${place}">Первый пункт</li>
+</ol>
+<div>Сумма к оплате <span th:text="${sum}"></span> рублей</div>
+
+<div><a	th:href="@{/forClient/saveOrder}">Забронировать</a></div>
+<div><a	th:href="@{/forClient}">Вернуться к выбору</a></div>
+
+<div th:insert="footer :: copy"></div>
+
+</body>
+</html>

@@ -17,12 +17,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import ru.vallball.kino01.model.Film;
 import ru.vallball.kino01.model.Place;
 import ru.vallball.kino01.model.Row;
 import ru.vallball.kino01.model.Session;
+import ru.vallball.kino01.model.Status;
 import ru.vallball.kino01.model.User;
 import ru.vallball.kino01.service.FilmService;
 import ru.vallball.kino01.service.PlaceService;
@@ -98,10 +102,39 @@ public class ClientController {
 
 			}
 		}
-
 		model.addAttribute("rows", rows);
 		return "choosePlace";
-
+	}
+	
+	@PostMapping("/choosePlace")
+	public String choosePlaces(@RequestParam("places") Long[] places_id, Model model, HttpServletRequest req) {
+		List<Place> places = new ArrayList<>();
+		for (int i = 0; i < places_id.length; i++) {
+			places.add(placeService.findPlaceById(places_id[i]));
+			logger.info("Было выбрано " + placeService.findPlaceById(places_id[i]));
+		}
+		double sum = 0;
+		for (Place place : places) {
+			sum = sum + place.getPrice();
+		}
+		model.addAttribute("places", places);
+		model.addAttribute("sum", sum);
+		req.getSession().setAttribute("places", places);
+		req.getSession().setAttribute("places", places);
+		return "yourChoice";
+	}
+	
+	@GetMapping("/saveOrder")
+	public String save(HttpServletRequest req) {
+		User user = (User) userService.loadUserByUsername(req.getRemoteUser());
+		@SuppressWarnings("unchecked")
+		List<Place> places = (List<Place>) req.getSession().getAttribute("places");
+		for (Place place : places) {
+			place.setUser(user);
+			place.setStatus(Status.BUSY);
+			placeService.update(place);
+		}
+		return "finalPage";
 	}
 
 }

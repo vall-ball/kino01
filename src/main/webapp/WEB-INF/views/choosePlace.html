@@ -32,15 +32,23 @@
 		<table>
 			<tr th:each="row : ${rows}">
 				<td th:each="place : ${row.places}"
-				th:class="${place.isFree()} ? 'statusFree' : 'statusBusy'"
-					 ><input type="checkbox" name="places" value=[[${place.id}]]/>[[${place}]]
-					</td>
+					th:class="${place.isFree()} ? 'statusFree' : 'statusBusy'">
+					<div th:if="${place.isFree()}">
+						<input type="checkbox" name="places" th:value="${place.id}"/>[[${place}]]
+					</div>
+					<div th:unless="${place.isFree()}">
+						<span th:unless="${place.isFree()}" th:text="${place}"></span>
+					</div>
+				</td>
 			</tr>
 		</table>
 		<div>
 			<input type="submit" value="Выбрать отмеченные места" />
 		</div>
 	</form>
+	
+	<span class="statusBusy">Занятые места</span>
+	<span class="statusFree">Свободные места</span>
 
 	<div th:insert="footer :: copy"></div>
 </body>
